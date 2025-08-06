@@ -14,80 +14,57 @@ struct ControlBarView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
-            
-            HStack {
-                // Favourite button
-                Button(action: {
-                }) {
-                    Image(.heart)
-                }
-                Spacer()
-                // Share button
-                Button(action: {
-                }) {
-                    Image(.upload)
-                }
-            }
-            .padding(.horizontal)
-            
+            topButtons
             VStack(spacing: 4) {
-                // Progress bar
-                Slider(value: $currentTime, in: 0...totalTime)
-                    .accentColor(.white)
-                    .padding(.horizontal)
-
-                // Song time
-                HStack {
-                    Text(formatTime(currentTime))
-                        .font(.caption)
-                        .foregroundColor(.white)
-                    Spacer()
-                    Text(formatTime(totalTime))
-                        .font(.caption)
-                        .foregroundColor(.white)
-                }
-                .padding(.horizontal)
+                progressBar
+                songTime
             }
-            
-          
-
-            HStack(spacing: 30) {
-                // Shuffle button
-                Button(action: {
-                }) {
-                    Image(.shuffle)
-                }
-                
-                // Backwards button
-                Button(action: {
-                }) {
-                    Image(.backwards)
-                }
-                
-                // Play button
-                Button(action: {
-                }) {
-                    Image(.play)
-                }
-                
-                // Forward button
-                Button(action: {
-                }) {
-                    Image(.foreward)
-                }
-                
-                // Repeat button
-                Button(action: {
-                }) {
-                    Image(.repeat)
-                }
-            }
-            
+            playerButtons
             Spacer()
         }
     }
+}
+
+private extension ControlBarView {
+    var topButtons: some View {
+        HStack {
+            Button(action: {}) {Image(.heart)}
+            Spacer()
+            Button(action: {}) {Image(.upload)}
+        }
+        .padding(.horizontal)
+    }
     
-    private func formatTime(_ seconds: Double) -> String {
+    var progressBar: some View {
+        Slider(value: $currentTime, in: 0...totalTime)
+            .accentColor(.white)
+            .padding(.horizontal)
+    }
+    
+    var songTime: some View {
+        HStack {
+            Text(formatTime(currentTime))
+                .font(.caption)
+                .foregroundColor(.white)
+            Spacer()
+            Text(formatTime(totalTime))
+                .font(.caption)
+                .foregroundColor(.white)
+        }
+        .padding(.horizontal)
+    }
+    
+    var playerButtons: some View {
+        HStack(spacing: 30) {
+            Button(action: {}) {Image(.shuffle)}
+            Button(action: {}) {Image(.backwards)}
+            Button(action: {}) {Image(.play)}
+            Button(action: {}) {Image(.foreward)}
+            Button(action: {}) {Image(.repeat)}
+        }
+    }
+    
+    func formatTime(_ seconds: Double) -> String {
         let minutes = Int(seconds) / 60
         let secs = Int(seconds) % 60
         return String(format: "%d:%02d", minutes, secs)
