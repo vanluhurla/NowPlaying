@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TitleView: View {
+    var song: Song
     var dragOffSet: CGFloat
     var show: Bool
     var geo: CGSize
@@ -15,7 +16,7 @@ struct TitleView: View {
     
     var body: some View {
         VStack (spacing: show ? 10 : 4) {
-            Text("Feeling Lonely")
+            Text(song.name)
                 .font(show ? .title : .callout)
                 .foregroundStyle(.white)
                 .bold()
@@ -25,7 +26,7 @@ struct TitleView: View {
                 .opacity(opacity)
                 .animation(.none, value: show)
 
-            Text("Soy Pablo")
+            Text(song.artist)
                 .font(.system(size: show ? 16 : 12, weight: .bold))
                 .foregroundStyle(.white)
                 .bold()
@@ -37,7 +38,3 @@ struct TitleView: View {
         }
     }
 }
-
-//#Preview {
-//    TitleView()
-//}
